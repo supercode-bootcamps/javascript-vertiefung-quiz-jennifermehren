@@ -1,0 +1,10 @@
+#content{
+    width: 80vw;
+    height: 80vh;
+    background-color: lightblue;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+p{
+    visibility: hidden;
+}
