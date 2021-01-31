@@ -106,16 +106,15 @@ let quiz = {
       quizContainer.appendChild(answerElement);
 
       if (answerElement.innerHTML == solution.innerHTML) { 
-        answerElement.classList.add("correct-button");
+        answerElement.classList.add("correctButton");
       } else {
-        answerElement.classList.add("wrong-button");
+        answerElement.classList.add("wrongButton");
       }
     }
   },
 
     createQuiz: function (question) {
-    this.createImage(question.url);
-    this.createQuestionText(question.question);
+    this.createQuestionText(question.question);  this.createImage(question.url);
     this.showCorrectAnswer(question.answer);
     this.createAnswers(question.choice);
     
@@ -123,4 +122,32 @@ let quiz = {
 };
 
 // Einfügen des aktuellen Inhalts ins HTML
-quiz.createQuiz(data[0]);
+
+let newQuestion = () => {quiz.createQuiz(data[+1])};
+
+let completeQuiz = () => {
+  quiz.createQuiz(data[0])
+  newQuestion();
+};
+
+completeQuiz()
+
+// ========= Antworten auswerten ==================
+
+let correctButton = document.querySelector(".correctButton");
+let falseButton = document.querySelectorAll(".wrongButton");
+
+correctButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  correctButton.style.background = "green";
+  correctButton.innerHTML =" richtig";
+  completeQuiz();
+})
+
+falseButton.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    button.style.background = "red";
+    button.innerHTML =" falsch";
+  });
+});
+
