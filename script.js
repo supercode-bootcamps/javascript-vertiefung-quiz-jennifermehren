@@ -169,7 +169,7 @@ let quiz = {
 
   firework: function () {
     this.clearQuiz();
-    this.createImage("/animiertes-feuerwerk-bild-0012.gif");
+    this.createImage("./animiertes-feuerwerk-bild-0012.gif");
     this.createQuestionText(
       "Das war richtig. Die nächste Frage kommt in 3..2..1.."
     );
