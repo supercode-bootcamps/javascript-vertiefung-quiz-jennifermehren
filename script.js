@@ -73,7 +73,7 @@ let data = [
   },
 ];
 
-// Einzelne Bestandteile einer Quizfrage in Quizcontainer in Html einfügen
+// Einzelne Bestandteile einer Quizfrage in Quizcontainer für HTML definieren
 
 let quizContainer = document.getElementById("content");
 
@@ -105,7 +105,7 @@ let quiz = {
       answerElement.innerHTML = allAnswers[i];
       quizContainer.appendChild(answerElement);
 
-      if (answerElement.innerHTML == solution.innerHTML) { 
+      if (answerElement.innerHTML == solution.innerHTML) {
         answerElement.classList.add("correctButton");
       } else {
         answerElement.classList.add("wrongButton");
@@ -113,41 +113,74 @@ let quiz = {
     }
   },
 
-    createQuiz: function (question) {
-    this.createQuestionText(question.question);  this.createImage(question.url);
+  createQuiz: function (question) {
+    this.createQuestionText(question.question);  
+    this.createImage(question.url);
     this.showCorrectAnswer(question.answer);
     this.createAnswers(question.choice);
-    
   },
+
+  clearQuiz: function () {
+    quizContainer.innerHTML = "";
+  }
 };
 
 // Einfügen des aktuellen Inhalts ins HTML
 
-let newQuestion = () => {quiz.createQuiz(data[+1])};
+let currentIndex = 0;
+let numbersOfQuestions = data.length;
 
-let completeQuiz = () => {
-  quiz.createQuiz(data[0])
-  newQuestion();
-};
+quiz.createQuiz(data[currentIndex]);
 
-completeQuiz()
+
+
+// let completeQuiz = () => {
+//   let counter = function () {
+//     for (let i = 1; i <= data.length; i++) {
+//     quiz.createQuiz(data[i]);
+//   }
+// };}
+
+
+let nextQuizElement = () => {
+  currentIndex++;
+  quiz.createQuiz(data[currentIndex]);
+ };
+
 
 // ========= Antworten auswerten ==================
 
 let correctButton = document.querySelector(".correctButton");
-let falseButton = document.querySelectorAll(".wrongButton");
+let wrongButton = document.querySelectorAll(".wrongButton");
 
-correctButton.addEventListener("click", (e) => {
+let setWrongButton = (wrongButton) =>
+{
+    wrongButton.forEach((button) =>
+    {
+        button.addEventListener("click", (e) =>
+        {
+            button.style.background = "red";
+            button.innerHTML = "falsch";
+        });
+    });
+}
+
+let setCorrectEventListener = (e) => {
   e.preventDefault();
   correctButton.style.background = "green";
-  correctButton.innerHTML =" richtig";
-  completeQuiz();
-})
+  correctButton.innerHTML = " richtig";
+  setTimeout (() => {
+    quiz.clearQuiz();
+    nextQuizElement();
+    correctButton = document.querySelector(".correctButton");
+    correctButton.addEventListener("click", setCorrectEventListener);
+    wrongButton = document.querySelectorAll(".wrongButton");
+    correctButton.addEventListener("click", setCorrectEventListener);
+        setWrongButton(wrongButton);
+    }
+  , 800);
+};
 
-falseButton.forEach((button) => {
-  button.addEventListener("click", (e) => {
-    button.style.background = "red";
-    button.innerHTML =" falsch";
-  });
-});
+correctButton.addEventListener("click", setCorrectEventListener);
+setWrongButton(wrongButton);
 
