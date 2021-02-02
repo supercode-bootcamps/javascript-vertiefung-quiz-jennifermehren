@@ -18,12 +18,25 @@ body {
   color: darkblue;
 }
 
+h1{
+  text-align: center;
+  margin: 0 auto; 
+}
+
+h1 + p{
+  text-align: center;
+  visibility: visible;
+}
+
+h1 + button{
+  color: red;
+  width: 200px;
+}
+
 #content {
-  /* background-color: rgba(252, 251, 250, 0.653); */
   background-color: lightyellow;
   width: 80%;
   max-height: 90%;
-  /* border: 5px solid rgb(13, 245, 245); */
   border: 5px solid rgb(79, 108, 236);
   border-radius: 10px;
   display: inline-block;
@@ -34,7 +47,7 @@ body {
   border: 7px solid rgb(26, 161, 33);
 }
 
-h1 {
+h2 {
   width: 80%;
   text-align: center;
   margin: 1% auto 3% auto;
@@ -49,23 +62,30 @@ img {
   height: 35vh;
 }
 
-
-button {
+button{
   display: block;
   min-height: 2.2rem;
   max-height: 3rem;
-  width: 50vw;
   margin: 2% auto;
   font-size: 1.5rem;
-  background-color: orange;
   color: darkblue;
   border-radius: 12px;
-  /* background-image: linear-gradient(purple, white, purple); */
+  width: 200px;
+  background-color: lightblue
+}
+
+.wrongButton, .correctButton {
+  min-width: 300px;
+  background-color: orange;
 }
 
 button:hover {
-  background-image: linear-gradient(gold, white, gold);
+  background-color: rgb(81, 207, 81);
   cursor: grab;
+}
+
+.wrongButton:hover, .correctButton:hover {
+  background-image: linear-gradient(gold, white, gold);
 }
 
 p {
