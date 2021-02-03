@@ -1,4 +1,5 @@
 // ======== Inhalte der Quizfragen als Objekte in einem Array =============
+
 let data = [
   {
     url:
@@ -96,7 +97,6 @@ let quiz = {
     quizContainer.appendChild(startQuizButton);
     quizContainer.style.display = "grid";
     quizContainer.style.alignItems = "center";
-    
   },
 
   createQuizEnd: function () {
@@ -178,30 +178,34 @@ let quiz = {
 
 // ================ Allgemeine Variablen und Funktionen===========
 let quizContainer = document.getElementById("content");
-let currentIndex = 0;
 let numbersOfQuestions = data.length;
+let currentIndex = 0;
 let nextQuizElement = () => {
   currentIndex++;
-  if (currentIndex <= numbersOfQuestions) {
-    quiz.createQuiz(data[currentIndex++]);
+  if (currentIndex < numbersOfQuestions) {
+    quiz.createQuiz(data[currentIndex]);
   } else {
     quiz.createQuizEnd();
   }
 };
 
 // =======Willkommen im Quiz // Einfügen des ersten Inhalts ======
+
 quiz.createQuizStart();
 
 // =================== Antworten auswerten ======================
 
 let correctButton = document.querySelector(".correctButton");
 let wrongButton = document.querySelectorAll(".wrongButton");
+
 let setAnswerButtons = (e) => {
   correctButton = document.querySelector(".correctButton");
-  correctButton.addEventListener("click", setCorrectButton);
   wrongButton = document.querySelectorAll(".wrongButton");
-  correctButton.addEventListener("click", setCorrectButton);
-  setWrongButton(wrongButton);
+
+  if (correctButton && wrongButton.length > 0) {
+    correctButton.addEventListener("click", setCorrectButton);
+    setWrongButton(wrongButton);
+  }
 };
 let setWrongButton = (e) => {
   e.forEach((button) => {
@@ -224,4 +228,3 @@ let setCorrectButton = (e) => {
     setAnswerButtons();
   }, 1000);
 };
-
